@@ -14,6 +14,7 @@ WORKDIR /scripts
 
 COPY *.sh /scripts/
 COPY *.py /scripts/
+COPY *.onnx /scripts/
 
 ENV CUTOFF=100000
 
