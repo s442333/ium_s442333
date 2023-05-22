@@ -35,7 +35,7 @@ jobs:
         working-directory: ./
 
       - name: Train Model
-        run: docker run dckrimg python3 ml.py && docker run dckrimg pwd ${{ github.event.inputs.training_params }}
+        run: docker run dckrimg python3 ml.py ${{ github.event.inputs.training_params }}
 
       - name: Copy Model Artifact
         run: docker cp $(docker ps -lq):/scripts/model.onnx .
