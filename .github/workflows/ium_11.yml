@@ -36,7 +36,7 @@ jobs:
           ls -la
           pwd
           docker build -t dckrimg .
-        working-directory: ./../
+        working-directory: ./
 
       - name: Train Model
         run: docker run dckrimg ml.py ${{ github.event.inputs.training_params }}
@@ -50,7 +50,7 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t dckrimg .
-        working-directory: ./../
+        working-directory: ./
 
       - name: Evaluate Model
         run: docker run dckrimg ml_test.py
