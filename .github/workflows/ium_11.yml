@@ -77,16 +77,11 @@ jobs:
         working-directory: ./
 
       - name: Print docker files
-        run: docker run dckrimg ls -la
+        run: docker run -d --name cntnr dckrimg sleep infinity
       
       - name: Copy Model Artifact
-        run: docker cp ./model.onnx $(docker ps -lq):/scripts/
-
-      - name: Print docker files after copy
-        run: |
-          docker run dckrimg pwd
-          docker run dckrimg ls -la
+        run: docker cp model.onnx cntnr:/scripts/
 
       - name: Evaluate Model
-        run: docker run dckrimg python3 ml_test.py
+        run: docker exec -it cntnr python3 ml_test.py
 
