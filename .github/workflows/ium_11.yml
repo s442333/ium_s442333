@@ -1,6 +1,9 @@
 name: Model Training Workflow
 
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       training_params:
@@ -29,7 +32,10 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Build Docker image
-        run: docker build -t dckrimg .
+        run: |
+          ls -la
+          pwd
+          docker build -t dckrimg .
 
       - name: Train Model
         run: docker run dckrimg ml.py ${{ github.event.inputs.training_params }}
