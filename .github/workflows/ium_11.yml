@@ -66,6 +66,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: model-artifact
+          path: ./
 
       - name: Print
         run: |
@@ -79,7 +80,7 @@ jobs:
         run: docker run dckrimg ls -la
       
       - name: Copy Model Artifact
-        run: docker cp ./model.onnx $(docker ps -lq):/scripts/model.onnx
+        run: docker cp ./model.onnx $(docker ps -lq):/scripts/
 
       - name: Print docker files after copy
         run: |
