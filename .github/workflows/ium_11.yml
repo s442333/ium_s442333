@@ -40,11 +40,15 @@ jobs:
       - name: Copy Model Artifact
         run: docker cp $(docker ps -lq):/scripts/model.onnx .
 
+      - name: Print pwd
+        run: |
+          ls -la
+
       - name: Archive Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: model-artifact
-          path: model.onxx
+          path: model.onnx
  
   evaluation:
     runs-on: ubuntu-latest
