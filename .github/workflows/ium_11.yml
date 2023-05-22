@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       training_params:
-        description: 'Training parameters'
+        description: 'Epochs'
         required: true
         default: '117'
 
@@ -67,12 +67,16 @@ jobs:
         with:
           name: model-artifact
 
+      - name: Print
+          run: |
+            ls -la
+
       - name: Build Docker image
         run: docker build -t dckrimg .
         working-directory: ./
       
       - name: Copy Model Artifact
-        run: docker cp model.onnx $(docker ps -lq):/scripts/model.onnx
+        run: docker cp model.onnx $(docker ps -lq):/scripts/
 
       - name: Evaluate Model
         run: docker run dckrimg python3 ml_test.py
