@@ -35,7 +35,7 @@ jobs:
         working-directory: ./
 
       - name: Train Model
-        run: docker run dckrimg python3 ml.py ${{ github.event.inputs.training_params }}
+        run: docker run dckrimg ./prepare-data.sh && python3 ml.py ${{ github.event.inputs.training_params }}
 
   evaluation:
     runs-on: ubuntu-latest

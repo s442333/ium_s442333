@@ -9,8 +9,6 @@ RUN apt-get update && \
 
 RUN python3 -m pip install torch
 RUN python3 -m pip install kaggle pandas onnx onnx2torch matplotlib
-RUN python3 -m pip install sacred pymongo
-RUN python3 -m pip install mlflow
 
 WORKDIR /scripts
 
