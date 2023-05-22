@@ -83,5 +83,5 @@ jobs:
         run: docker cp model.onnx cntnr:/scripts/
 
       - name: Evaluate Model
-        run: docker exec -it cntnr python3 ml_test.py
+        run: docker exec cntnr python3 ml_test.py
 
