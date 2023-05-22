@@ -16,3 +16,5 @@ COPY *.sh /scripts/
 COPY *.py /scripts/
 
 ENV CUTOFF=100000
+
+CMD ['sh', 'prepare-data.sh']
