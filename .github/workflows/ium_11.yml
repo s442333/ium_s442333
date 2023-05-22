@@ -81,6 +81,9 @@ jobs:
       - name: Copy Model Artifact
         run: docker cp ./model.onnx $(docker ps -lq):/scripts
 
+      - name: Print docker files after copy
+        run: docker run dckrimg ls -la
+
       - name: Evaluate Model
         run: docker run dckrimg python3 ml_test.py
 
