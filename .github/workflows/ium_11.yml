@@ -1,0 +1,57 @@
+name: Model Training Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      training_params:
+        description: 'Training parameters'
+        required: true
+        default: '100002'
+
+jobs:
+  checkout_repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+  download_data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Data
+        run: wget https://s442333.students.wmi.amu.edu.pl/weather.csv
+
+  training:
+    runs-on: ubuntu-latest
+    needs: [checkout_repo, download_data]
+    steps:
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker image
+        run: docker build -t dckrimg .
+        working-directory: ./
+
+      - name: Train Model
+        run: docker run dckrimg ml.py ${{ github.event.inputs.training_params }}
+
+  evaluation:
+    runs-on: ubuntu-latest
+    needs: training
+    steps:
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker image
+        run: docker build -t dckrimg .
+        working-directory: ./
+
+      - name: Evaluate Model
+        run: docker run dckrimg ml_test.py
+
+  archive_model:
+    runs-on: ubuntu-latest
+    needs: evaluation
+    steps:
+      - name: Archive Model
+        run: tar -czvf model.tar.gz model.onnx
