@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
   download_data:
     runs-on: ubuntu-latest
@@ -34,7 +34,6 @@ jobs:
       - name: Build Docker image
         run: |
           ls -la
-          ls -la ./../
           pwd
           docker build -t dckrimg .
         working-directory: ./../
