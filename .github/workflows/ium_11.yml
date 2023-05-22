@@ -9,7 +9,7 @@ on:
       training_params:
         description: 'Training parameters'
         required: true
-        default: '100002'
+        default: '117'
 
 jobs:
   download_data:
