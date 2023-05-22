@@ -68,8 +68,8 @@ jobs:
           name: model-artifact
 
       - name: Print
-          run: |
-            ls -la
+        run: |
+          ls -la
 
       - name: Build Docker image
         run: docker build -t dckrimg .
