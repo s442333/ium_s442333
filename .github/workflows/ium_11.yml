@@ -35,17 +35,19 @@ jobs:
         working-directory: ./
 
       - name: Train Model
-        run: docker run dckrimg python3 ml.py ${{ github.event.inputs.training_params }}
+        run: |
+          docker run dckrimg python3 ml.py ${{ github.event.inputs.training_params }}
 
       - name: Copy Model Artifact
-        run: docker cp $(docker ps -lq):/scripts/model.onnx .
+        run: |
+          docker cp $(docker ps -lq):/scripts/model.onnx .
 
       - name: Print pwd
         run: |
           ls -la
 
       - name: Archive Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: model-artifact
           path: model.onnx
@@ -61,7 +63,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: model-artifact
 
@@ -70,7 +72,7 @@ jobs:
         working-directory: ./
       
       - name: Copy Model Artifact
-        run: docker cp model.onxx $(docker ps -lq):/scripts/model.onnx
+        run: docker cp model.onnx $(docker ps -lq):/scripts/model.onnx
 
       - name: Evaluate Model
         run: docker run dckrimg python3 ml_test.py
