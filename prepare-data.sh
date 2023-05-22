@@ -8,7 +8,7 @@ head -n 5 weather.csv
 head -n 1 weather.csv > header.csv
 
 # Remove header and shuffle data
-head -n -1 weather.csv | shuf > weather.csv.shuf
+tail -n +2 weather.csv | shuf > weather.csv.shuf
 
 # Define percentages for train,dev and test sets
 ten=$((${CUTOFF}/10))
